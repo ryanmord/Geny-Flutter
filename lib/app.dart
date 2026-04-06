@@ -5,6 +5,7 @@ import 'services/backend_process_manager.dart';
 import 'services/backend_service.dart';
 import 'services/websocket_service.dart';
 import 'theme/app_theme.dart';
+import 'view_models/chat_view_model.dart';
 
 class GenyApp extends StatefulWidget {
   const GenyApp({super.key});
@@ -17,11 +18,16 @@ class _GenyAppState extends State<GenyApp> {
   final _processManager = BackendProcessManager();
   late final BackendService _backendService;
   final _webSocketService = WebSocketService();
+  late final ChatViewModel _chatViewModel;
 
   @override
   void initState() {
     super.initState();
     _backendService = BackendService(baseUrl: '');
+    _chatViewModel = ChatViewModel(
+      backendService: _backendService,
+      webSocketService: _webSocketService,
+    );
     _startBackend();
   }
 
@@ -35,6 +41,7 @@ class _GenyAppState extends State<GenyApp> {
 
   @override
   void dispose() {
+    _chatViewModel.dispose();
     _webSocketService.dispose();
     _processManager.dispose();
     _backendService.dispose();
@@ -48,6 +55,7 @@ class _GenyAppState extends State<GenyApp> {
         ChangeNotifierProvider.value(value: _processManager),
         Provider.value(value: _backendService),
         Provider.value(value: _webSocketService),
+        ChangeNotifierProvider.value(value: _chatViewModel),
       ],
       child: MaterialApp(
         title: 'Geny',
