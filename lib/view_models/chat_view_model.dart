@@ -50,6 +50,9 @@ class ChatViewModel extends ChangeNotifier {
   String? _currentConversationId;
   String? get currentConversationId => _currentConversationId;
 
+  String? _workingDirectory;
+  String? get workingDirectory => _workingDirectory;
+
   double? _lastCostUsd;
   double? get lastCostUsd => _lastCostUsd;
 
@@ -87,6 +90,12 @@ class ChatViewModel extends ChangeNotifier {
     _messages = [];
     _error = null;
     _currentConversationId = null;
+    _workingDirectory = null;
+    notifyListeners();
+  }
+
+  void setWorkingDirectory(String? path) {
+    _workingDirectory = path;
     notifyListeners();
   }
 
