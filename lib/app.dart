@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'services/backend_process_manager.dart';
 import 'services/backend_service.dart';
 import 'services/websocket_service.dart';
+import 'theme/app_theme.dart';
 
 class GenyApp extends StatefulWidget {
   const GenyApp({super.key});
@@ -51,13 +52,9 @@ class _GenyAppState extends State<GenyApp> {
       child: MaterialApp(
         title: 'Geny',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue,
-            brightness: Brightness.dark,
-          ),
-          useMaterial3: true,
-        ),
+        theme: buildAppTheme(Brightness.light),
+        darkTheme: buildAppTheme(Brightness.dark),
+        themeMode: ThemeMode.system,
         home: StreamBuilder<BackendState>(
           stream: _processManager.stateStream,
           initialData: _processManager.state,

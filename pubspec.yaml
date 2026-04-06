@@ -27,6 +27,9 @@ dependencies:
   # Syntax highlighting
   flutter_highlight: ^0.7.0
 
+  # Markdown AST (used by flutter_markdown builders)
+  markdown: ^7.2.2
+
   # UUID generation
   uuid: ^4.5.1
 
